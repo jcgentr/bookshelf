@@ -1,9 +1,74 @@
-// 🐨 you'll need to import React and ReactDOM up here
+import * as React from 'react'
+import ReactDOM from 'react-dom'
+import {Dialog} from '@reach/dialog'
+import '@reach/dialog/styles.css'
 
-// 🐨 you'll also need to import the Logo component from './components/logo'
+import {Logo} from './components/logo'
 
-// 🐨 create an App component here and render the logo, the title ("Bookshelf"), a login button, and a register button.
-// 🐨 for fun, you can add event handlers for both buttons to alert that the button was clicked
+function App() {
+  const [openModal, setOpenModal] = React.useState('none')
+  const open = modal => setOpenModal(modal)
+  const close = () => setOpenModal('none')
+  const login = formData => {
+    console.log('login', formData)
+    close()
+  }
+  const register = formData => {
+    console.log('register', formData)
+    close()
+  }
 
-// 🐨 use ReactDOM to render the <App /> to the root element
-// 💰 find the root element with: document.getElementById('root')
+  return (
+    <div>
+      <Logo />
+      <h1>Bookshelf</h1>
+      <button onClick={() => open('login')}>Login</button>
+      <button onClick={() => open('register')}>Register</button>
+
+      <Dialog
+        style={{color: 'blue'}}
+        isOpen={openModal === 'login'}
+        onDismiss={close}
+      >
+        <LoginForm onSubmit={login} buttonText="Login" />
+      </Dialog>
+      <Dialog
+        style={{color: 'green'}}
+        isOpen={openModal === 'register'}
+        onDismiss={close}
+      >
+        <LoginForm onSubmit={register} buttonText="Register" />
+      </Dialog>
+    </div>
+  )
+}
+
+function LoginForm({onSubmit, buttonText}) {
+  function handleSubmit(event) {
+    event.preventDefault()
+    const {username, password} = event.target.elements
+
+    onSubmit({
+      username: username.value,
+      password: password.value,
+    })
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="username">Username</label>
+        <input id="username" />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input id="password" type="password" />
+      </div>
+      <div>
+        <button type="submit">{buttonText}</button>
+      </div>
+    </form>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))

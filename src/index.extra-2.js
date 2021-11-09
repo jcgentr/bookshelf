@@ -19,7 +19,7 @@ function LoginForm({onSubmit, buttonText}) {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="username">Username</label>
-        <input id="username" />
+        <input id="username" type="text" />
       </div>
       <div>
         <label htmlFor="password">Password</label>
