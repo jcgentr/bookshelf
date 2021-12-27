@@ -17,8 +17,8 @@ The idea behind routing on the web is you have some API that informs you of
 changes to the URL, then you react (no pun intended) to those changes by
 rendering the correct user interface based on that URL route. In addition, you
 can change the URL when the user performs an action (like clicking a link or
-submitting a form). This all happens client-side and does not reload the
-browser.
+submitting a form). **This all happens client-side and does not reload the
+browser.**
 
 Here's a quick demo of a few of the features you'll need to know about for this
 exercise:
